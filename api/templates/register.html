@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Username:</label><br>
+        <input type="text" name="username" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+
+    {% if errors %}
+        <p style="color:red;">
+            {% for field, msgs in errors.items %}
+                {{ field }}: {{ msgs.0 }}<br>
+            {% endfor %}
+        </p>
+    {% endif %}
+</body>
+</html>
