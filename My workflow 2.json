@@ -1,0 +1,70 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "register-user-email",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f1a7e91e-0ea8-45e3-99b0-b77adcf55e32",
+      "name": "Webhook",
+      "webhookId": "d94c2d02-c683-4aae-a4dd-87bd7ce60bb2"
+    },
+    {
+      "parameters": {
+        "fromEmail": "vehiclehistory77@gmail.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "=Welcome,  {{ $json.body.username }}",
+        "html": "=Welcome {{$json[\"body\"][\"username\"]}}\nThank you for registering on our website. We are glad to have you onboard.\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "79fa2a0e-1186-4aef-8d63-410f53a34f66",
+      "name": "Send email",
+      "webhookId": "a70a5fa6-da32-4c53-a5d6-a6e5a577a4e6",
+      "credentials": {
+        "smtp": {
+          "id": "EYJuhhG7FWFItgRH",
+          "name": "SMTP account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "20e11ee8-4f83-4ae4-b595-2cb339513f24",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c45ae51542fd71f899d508c2bcfd0267c10731881d0784897b16c5a603f38313"
+  },
+  "id": "xvouUYAi144Tng1g",
+  "tags": []
+}
