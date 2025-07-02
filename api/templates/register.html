@@ -18,13 +18,5 @@
 
         <input type="submit" value="Register">
     </form>
-
-    {% if errors %}
-        <p style="color:red;">
-            {% for field, msgs in errors.items %}
-                {{ field }}: {{ msgs.0 }}<br>
-            {% endfor %}
-        </p>
-    {% endif %}
 </body>
 </html>
