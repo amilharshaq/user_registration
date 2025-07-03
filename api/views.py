@@ -1,30 +1,26 @@
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-import json
-import requests
 from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+import requests
+
+class RegisterView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
 
 
-
-@csrf_exempt
-def register(request):
-    if request.method == 'GET':
-        return render(request, 'register.html')
-
-    elif request.method == 'POST':
-
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        print(request.POST)
 
         errors = {}
 
         #validating the user inputs
-      
+
         if not username or username.strip() == "":
             errors['username'] = ['This field is required.']
         elif User.objects.filter(username=username.strip()).exists():
@@ -45,13 +41,12 @@ def register(request):
         elif len(password.strip()) < 6:
             errors['password'] = ['Password must be at least 6 characters.']
 
-
         if errors:
-            return JsonResponse({
+            return Response({
                 'success': False,
                 'errors': errors
-            }, status=400)
-        
+            }, status=status.HTTP_400_BAD_REQUEST)
+
         user = User.objects.create_user(username=username, email=email, password=password)
 
         # calling n8n web hook
@@ -62,22 +57,13 @@ def register(request):
         }
 
         try:
-
             # the n8n web hook url is declared in settings.py, im using n8n for the first time and i have used their free cloud service for 14 days.
-
             n8n_url = settings.N8N_WEBHOOK_URL
             requests.post(n8n_url, json=payload, timeout=5)
         except Exception as e:
             print(f"n8n webhook error: {e}")
 
- 
-        return JsonResponse({
+        return Response({
             'success': True,
             'message': 'Registration successful.'
-        }, status=201)
-
-
-    return JsonResponse({
-        'success': False,
-        'errors': 'Method not allowed.'
-    }, status=405)
+        }, status=status.HTTP_201_CREATED)
