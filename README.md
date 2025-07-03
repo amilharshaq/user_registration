@@ -3,23 +3,17 @@
 
 This project is a **User Registration API built using Django** that integrates with an **n8n workflow** to send a registration confirmation email after a successful signup.
 
-I have created a **registration page in HTML**, which can be accessed at the endpoint **`/api/register`**. This webpage consists of three fields for entering **username, email, and password** respectively. By submitting the form, it validates the inputs, returns a response, and sends a request to the **n8n webhook**. Below I have attached the screenshots of the registration page and the response page.
+I have created an endpoint **`/api/register`** using django APIView (Django restframework ). which takes a json input and send response based on the recieved data. i have tested the end point using **`POSTMAN`** and screenshot is attached below.
 
 ---
 
-### REGISTRATION PAGE
+### POSTMAN
 
-![register page](https://github.com/user-attachments/assets/9818a93a-347b-4563-a562-1ea0aaea281b)
 
----
-
-### RESPONSE
-
-![registration success](https://github.com/user-attachments/assets/928505e3-aab5-4808-8fd5-239264e4a18f)
-
-![error message](https://github.com/user-attachments/assets/2e1d72bc-d5f7-4e9f-9fea-9b02b8e810ec)
+![post man](https://github.com/user-attachments/assets/1377b8c0-673c-47da-9a56-a441a98f03bf)
 
 ---
+
 
 ## n8n Email Workflow Integration
 
