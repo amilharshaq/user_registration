@@ -14,9 +14,6 @@ class RegisterView(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
 
-
-        print(request.POST)
-
         errors = {}
 
         #validating the user inputs
